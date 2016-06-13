@@ -119,7 +119,7 @@ func (b *BuildManifestVerifier) VerifyHoistArtifact(localCopy *os.File, artifact
 	switch artifactLocation.Scheme {
 	default:
 		return util.Errorf("%v does not have a recognized scheme '%v', cannot verify manifest or signature", artifactLocation.String(), artifactLocation.Scheme)
-	case "http", "https", "file":
+	case "file", "gs", "http", "https":
 		dir, err := ioutil.TempDir("", "artifact_verification")
 		if err != nil {
 			return util.Errorf("Could not create temporary directory for manifest file: %v", err)
@@ -231,7 +231,7 @@ func (b *BuildVerifier) VerifyHoistArtifact(localCopy *os.File, artifactLocation
 	switch artifactLocation.Scheme {
 	default:
 		return util.Errorf("%v does not have a recognized scheme, cannot verify signature", artifactLocation.String())
-	case "http", "https", "file":
+	case "file", "gs", "http", "https":
 		dir, err := ioutil.TempDir("", "artifact_verification")
 		if err != nil {
 			return util.Errorf("Could not create temporary directory for manifest file: %v", err)
